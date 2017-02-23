@@ -9,15 +9,14 @@ import java.util.InputMismatchException;
 public class Car {
 
     private String make, model, features;
-    private int mileage;
+    private int mileage, year;
     private double price;
-    private LocalDate year;
 
     /**
      * Car constructor
      * Order of arguments: make, model, year, mileage, price, features
      */
-    public Car(String make, String model, LocalDate year, int mileage, double price, String features){
+    public Car(String make, String model, int year, int mileage, double price, String features){
         this.make = make;
         this.model = model;
         setYear(year);
@@ -28,18 +27,14 @@ public class Car {
 
     @Override
     public String toString(){
-        return make + " " + model + " " + year + " Car milage: " + mileage + "; Price: " + price + "; Features: " + features;
+        return make + " " + model + ", " + year + " year " + mileage + " miles, " + price + " usd, " + features;
     }
 
-    private void setYear(LocalDate year){
-        if(year.getYear() > LocalDate.now().getYear()){
-            throw new IllegalArgumentException("The year cannot be bigger than current year");
-        } else {
-            if(year.getYear() < 1800){
-                throw new IllegalArgumentException("This car is too old! Should be made later than year 1800");
-            } else {
-                this.year = year;
-            }
+    private void setYear(int year){
+        if(year > LocalDate.now().getYear()){
+            throw new IllegalArgumentException("Year cannot be higher than current year");
+        } else if(year < 1800){
+            throw new IllegalArgumentException("Year cannot be less than 1800 (cars did not exist back then)");
         }
     }
 
@@ -61,6 +56,15 @@ public class Car {
         } catch(InputMismatchException e){
             System.out.println(e.getMessage());
         }
+    }
+
+    public void updateCar(String make, String model, int year, int mileage, double price, String features){
+        this.make = make;
+        this.model = model;
+        setYear(year);
+        setMileage(mileage);
+        setPrice(price);
+        this.features = features;
     }
 
     /**
@@ -99,7 +103,7 @@ public class Car {
         return price;
     }
 
-    public LocalDate getYear() {
+    public int getYear() {
         return year;
     }
 }
