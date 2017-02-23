@@ -27,20 +27,22 @@ public class Car {
 
     @Override
     public String toString(){
-        return make + " " + model + ", " + year + " year " + mileage + " miles, " + price + " usd, " + features;
+        return make + " " + model + ", " + year + " year, " + mileage + " miles, " + price + " usd, " + features;
     }
 
-    private void setYear(int year){
+    protected void setYear(int year){
         if(year > LocalDate.now().getYear()){
             throw new IllegalArgumentException("Year cannot be higher than current year");
         } else if(year < 1800){
             throw new IllegalArgumentException("Year cannot be less than 1800 (cars did not exist back then)");
+        } else {
+            this.year = year;
         }
     }
 
-    private void setMileage(int mileage){
+    protected void setMileage(int mileage){
         try {
-            if (mileage < 0) {
+            if (mileage > 0) {
                 this.mileage = mileage;
             }
         } catch(InputMismatchException e){
@@ -48,11 +50,16 @@ public class Car {
         }
     }
 
-    private void setPrice(double price){
+    protected void setPrice(double price){
         try {
-            if (price < 0) {
-                this.price = price;
+            try{
+                if (price > 0) {
+                    this.price = price;
+                }
+            } catch (IllegalArgumentException ex){
+                System.out.println(ex.getMessage());
             }
+
         } catch(InputMismatchException e){
             System.out.println(e.getMessage());
         }
