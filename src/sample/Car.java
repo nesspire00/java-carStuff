@@ -13,10 +13,10 @@ public class Car {
     private double price;
 
     /**
-     * Car constructor
-     * Order of arguments: make, model, year, mileage, price, features
+     * Car constructor Order of arguments: make, model, year, mileage, price,
+     * features
      */
-    public Car(String make, String model, int year, int mileage, double price, String features){
+    public Car(String make, String model, int year, int mileage, double price, String features) {
         this.make = make;
         this.model = model;
         setYear(year);
@@ -26,46 +26,37 @@ public class Car {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return make + " " + model + ", " + year + " year, " + mileage + " miles, " + price + " usd, " + features;
     }
 
-    protected void setYear(int year){
-        if(year > LocalDate.now().getYear()){
+    protected void setYear(int year) {
+        if (year > LocalDate.now().getYear()) {
             throw new IllegalArgumentException("Year cannot be higher than current year");
-        } else if(year < 1800){
+        } else if (year < 1800) {
             throw new IllegalArgumentException("Year cannot be less than 1800 (cars did not exist back then)");
         } else {
             this.year = year;
         }
     }
 
-    protected void setMileage(int mileage){
-        try {
-            if (mileage > 0) {
-                this.mileage = mileage;
-            }
-        } catch(InputMismatchException e){
-            System.out.println(e.getMessage());
+    protected void setMileage(int mileage) {
+        if (mileage > 0) {
+            this.mileage = mileage;
+        } else {
+            throw new IllegalArgumentException("Price should be greater than 0");
         }
     }
 
-    protected void setPrice(double price){
-        try {
-            try{
-                if (price > 0) {
-                    this.price = price;
-                }
-            } catch (IllegalArgumentException ex){
-                System.out.println(ex.getMessage());
-            }
-
-        } catch(InputMismatchException e){
-            System.out.println(e.getMessage());
+    protected void setPrice(double price) {
+        if (price > 0) {
+            this.price = price;
+        } else {
+            throw new IllegalArgumentException("Price should be greater than 0");
         }
     }
 
-    public void updateCar(String make, String model, int year, int mileage, double price, String features){
+    public void updateCar(String make, String model, int year, int mileage, double price, String features) {
         this.make = make;
         this.model = model;
         setYear(year);
@@ -77,7 +68,6 @@ public class Car {
     /**
      * GETTERS AND SETTERS
      */
-
     public String getMake() {
         return make;
     }

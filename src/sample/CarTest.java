@@ -5,7 +5,6 @@
  */
 package sample;
 
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 
 import sample.Car;
@@ -93,13 +92,13 @@ public class CarTest {
         System.out.println("getPrice");
         double expResult = 300000.00;
         double result = car.getPrice();
-        assertEquals(expResult, result);
+        assertEquals(expResult, result, 0);
     }
     
     @Test
     public void testGetFeatures() {
         System.out.println("getFeatures");
-        String expResult = "Mitsubishi";
+        String expResult = "cool, fast, strong";
         String result = car.getFeatures();
         assertEquals(expResult, result);
     }
@@ -118,11 +117,26 @@ public class CarTest {
              
         }
     }
+
+    @Test
+    public void testSetYearBiggerInvalid() {
+        System.out.println("setYear");
+        int year = 2020;
+        try
+        {
+            car.setYear(year);
+            fail("setYear should have thrown an exception");
+        }
+        catch (IllegalArgumentException e)
+        {
+
+        }
+    }
     
     @Test
     public void testSetMileageInvalid() {
         System.out.println("setMileage");
-        int millage = 0;
+        int millage = -5;
         try
         {
             car.setMileage(millage);
@@ -137,13 +151,13 @@ public class CarTest {
     @Test
     public void testSetPriceInvalid() {
         System.out.println("setPrice");
-        int price = 0;
+        double price = 0;
         try
         {
             car.setPrice(price);
             fail("setPrice should have thrown an exception");
         }
-        catch (InputMismatchException e)
+        catch (IllegalArgumentException e)
         {
              
         }
@@ -199,7 +213,7 @@ public class CarTest {
     public void testSetPrice() {
         double price = 150000.33;
         car.setPrice(price);
-        assertEquals(price, car.getPrice());
+        assertEquals(price, car.getPrice(), 0);
     }
     
     @Test
